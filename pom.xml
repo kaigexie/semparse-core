@@ -4,87 +4,126 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>semparse</artifactId>
-        <groupId>io.github.semlink</groupId>
-        <version>0.1-SNAPSHOT</version>
-        <relativePath>..</relativePath>
-    </parent>
+    <prerequisites>
+        <maven>3.3.3</maven>
+    </prerequisites>
 
-    <artifactId>semparse-core</artifactId>
+    <groupId>io.github.semlink</groupId>
+    <artifactId>semparse</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>SemParse</name>
+    <description>Provides tools for SemLink parsing.</description>
+    <url>https://github.com/semlink/semparse</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>jamesgung</id>
+            <email>gungjm@gmail.com</email>
+            <name>James Gung</name>
+            <organization>clearwsd</organization>
+            <organizationUrl>https://github.com/semlink</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/jgung/verbnet-parser.git</connection>
+        <developerConnection>scm:git:https://github.com/jgung/verbnet-parser.git</developerConnection>
+        <url>https://github.com/jgung/verbnet-parser</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/jgung/verbnet-parser/issues</url>
+    </issueManagement>
 
     <properties>
-        <tensorflow.version>1.15.0</tensorflow.version>
-        <dkpro.core.version>2.2.0</dkpro.core.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <guava.version>27.0-jre</guava.version>
+        <lombok.version>1.18.4</lombok.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <logback.version>1.2.3</logback.version>
+        <junit.version>4.12</junit.version>
+        <jackson.version>2.9.0</jackson.version>
+        <woodstox.version>5.1.0</woodstox.version>
+        <clearwsd.version>0.12.0</clearwsd.version>
     </properties>
+
+    <modules>
+        <module>semparse-tf4j</module>
+        <module>semparse-core</module>
+        <module>semparse-web</module>
+    </modules>
+
+    <dependencies>
+        <!-- Shared dependencies -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.woodstox</groupId>
+            <artifactId>woodstox-core</artifactId>
+            <version>${woodstox.version}</version>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.dkpro.core</groupId>
-                <artifactId>dkpro-core-asl</artifactId>
-                <version>${dkpro.core.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>io.github.semlink</groupId>
+                <artifactId>semparse-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.semlink</groupId>
+                <artifactId>semparse-tf4j</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.semlink</groupId>
+                <artifactId>semparse-web</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>org.dkpro.core</groupId>
-            <artifactId>dkpro-core-opennlp-asl</artifactId>
-        </dependency>
-
-        <!-- TF dependencies -->
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>proto</artifactId>
-            <version>${tensorflow.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>tensorflow</artifactId>
-            <version>${tensorflow.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.semlink</groupId>
-            <artifactId>semparse-tf4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.clearwsd</groupId>
-            <artifactId>clearwsd-core</artifactId>
-            <version>0.12.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.clearwsd</groupId>
-            <artifactId>clearwsd-nlp4j</artifactId>
-            <version>0.12.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.clearwsd</groupId>
-            <artifactId>clearwsd-models</artifactId>
-            <version>0.12.1</version>
-        </dependency>
-
-        <!-- Java 11 Support -->
-        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.4.0-b180830.0359</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>2.4.0-b180830.0438</version>
-        </dependency>
-    </dependencies>
 
 </project>
