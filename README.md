@@ -22,9 +22,9 @@ The root directory should look like this:
 ├── LICENSE.txt
 ├── README.md
 ├── pom.xml
-└── semparse-core
+├── semparse-core
+└── semparse
     ├── pom.xml
-    ├── semparse
     ├── src
     └── test.txt
 ```
